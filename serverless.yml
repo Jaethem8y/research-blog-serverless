@@ -1,0 +1,19 @@
+service: research-serverless
+
+frameworkVersion: '3'
+
+plugins:
+  - serverless-jetpack
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  region: us-east-2 
+
+functions:
+  api:
+    handler: dist/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{proxy+}

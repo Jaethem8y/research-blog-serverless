@@ -1,0 +1,56 @@
+POST http://127.0.0.1:8080/auth/signup HTTP/1.1
+content-type: application/json
+
+{
+    "username":"jaethem8",
+    "password":"printJaehyeok123123!",
+    "role":"ADMIN"
+}
+###
+POST http://127.0.0.1:8080/auth/signin HTTP/1.1
+Authorization: Bearer
+content-type: application/json
+
+{
+    "username":"jaethem8",
+    "password":"printJaehyeok123123!"
+}
+
+###
+
+GET http://localhost:8080/posts/api
+
+###
+
+POST http://localhost:8080/post/add HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYWV0aGVtOCIsImlhdCI6MTY2NzUwODI5MywiZXhwIjoxNjY3NTk0NjkzfQ.BsA5npqHk0nMDUIGZ-fx0Uwe3-SrEKf8l5TuafMYA9Y
+
+{
+    "title":"test4",
+    "description":"description",
+    "category":"API",
+    "contents":[
+      {
+        "order":1,
+        "writing":"asdfasdf"
+      },
+      {
+        "order":2,
+        "writing":"asdfasdf",
+        "image":"asdfasdfasdfasdf"
+      }
+    ]
+}
+###
+GET http://localhost:8080/post/delete/test4 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYWV0aGVtOCIsImlhdCI6MTY2NzUwODI5MywiZXhwIjoxNjY3NTk0NjkzfQ.BsA5npqHk0nMDUIGZ-fx0Uwe3-SrEKf8l5TuafMYA9Y
+
+
+###
+
+GET http://localhost:8080/post/test3 HTTP/1.1
+
+###
+GET http://localhost:8080/users/me HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqYWV0aGVtOCIsImlhdCI6MTY2NzQ5MTQwNSwiZXhwIjoxNjY3NTc3ODA1fQ.NMsSXxZ8XZoND2L3lTrQTI8dr2iOO60Q5BtiSd6DaHw
