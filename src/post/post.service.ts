@@ -35,6 +35,9 @@ export class PostService {
       relations: {
         contents: false,
       },
+      order: {
+        createdAt: 'DESC',
+      },
     });
   }
 

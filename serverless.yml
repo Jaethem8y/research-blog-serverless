@@ -1,14 +1,20 @@
-service: research-serverless
+service: research-serverless-typeorm
+
+useDotenv: true
 
 frameworkVersion: '3'
 
 plugins:
   - serverless-jetpack
+  - serverless-offline
 
 provider:
   name: aws
   runtime: nodejs16.x
-  region: us-east-2 
+  region: us-east-2
+  # environment:
+  #   JWT_SECRET: ${env:JWT_SECRET}
+  #   HASH: ${env:DANNERCHANT}
 
 functions:
   api:
@@ -16,4 +22,13 @@ functions:
     events:
       - http:
           method: any
+          path: /
+          cors:
+            headers: '*'
+
+      - http:
+          method: any
           path: /{proxy+}
+          cors:
+            headers: '*'
+

@@ -1,5 +1,14 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Response,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { Response as Res } from 'express';
 import { PostDTO } from './dto';
 import { PostService } from './post.service';
 
@@ -8,33 +17,63 @@ export class PostController {
   constructor(private postService: PostService) {}
 
   @Get('/posts/:category')
-  async posts(@Param() params) {
+  async posts(@Param() params, @Response() res: Res) {
     const category = params.category;
-    return await this.postService.getPosts(category);
+    const body = await this.postService.getPosts(category);
+    return res
+      .set({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      })
+      .json(body);
   }
 
   @Get('/post/:title')
-  async post(@Param() params) {
+  async post(@Param() params, @Response() res: Res) {
     const title = params.title;
-    return await this.postService.getPost(title);
+    const body = await this.postService.getPost(title);
+    return res
+      .set({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      })
+      .json(body);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('/post/add')
-  async addPost(@Body() dto: PostDTO) {
-    return await this.postService.savePost(dto);
+  async addPost(@Body() dto: PostDTO, @Response() res: Res) {
+    const body = this.postService.savePost(dto);
+    return res
+      .set({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      })
+      .json(body);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('/post/edit')
-  async editPost(@Body() dto: PostDTO) {
-    return await this.postService.updatePost(dto);
+  async editPost(@Body() dto: PostDTO, @Response() res: Res) {
+    const body = await this.postService.updatePost(dto);
+    return res
+      .set({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      })
+      .json(body);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/post/delete/:title')
-  async deletePost(@Param() params) {
+  async deletePost(@Param() params, @Response() res: Res) {
     const title = params.title;
-    return await this.postService.deletePost(title);
+    const body = await this.postService.deletePost(title);
+    return res
+      .set({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      })
+      .json(body);
   }
 }

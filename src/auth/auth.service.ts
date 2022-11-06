@@ -1,11 +1,10 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { AuthDTO, LoginDTO } from './dto';
-import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Admin } from '../typeorm/entities/Admin';
-import { ILike, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class AuthService {
@@ -16,10 +15,8 @@ export class AuthService {
   ) {}
   async signup(dto: AuthDTO) {
     try {
-      const hash = await argon.hash(dto.password);
       const admin = await this.adminRepository.save({
         ...dto,
-        password: hash,
       });
       delete admin.password;
       return admin;
@@ -35,7 +32,7 @@ export class AuthService {
     });
     console.log('user:', user);
     if (!user) throw new ForbiddenException('No user does not exist');
-    const pwMatches = await argon.verify(user.password, dto.password);
+    const pwMatches = user.password == dto.password;
     if (!pwMatches) throw new ForbiddenException('No');
     return await this.signToken(user.username);
   }

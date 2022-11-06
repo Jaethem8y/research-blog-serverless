@@ -2,17 +2,17 @@ POST http://127.0.0.1:8080/auth/signup HTTP/1.1
 content-type: application/json
 
 {
-    "username":"jaethem8",
+    "username":"jaethem8y",
     "password":"printJaehyeok123123!",
     "role":"ADMIN"
 }
 ###
-POST http://127.0.0.1:8080/auth/signin HTTP/1.1
+POST https://cc4f2mf7kh.execute-api.us-east-2.amazonaws.com/dev//auth/signin HTTP/1.1
 Authorization: Bearer
 content-type: application/json
 
 {
-    "username":"jaethem8",
+    "username":"jaethem",
     "password":"printJaehyeok123123!"
 }
 

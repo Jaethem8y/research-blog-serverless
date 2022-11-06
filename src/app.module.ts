@@ -13,14 +13,7 @@ import { Content } from './typeorm/entities/Content';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'Jaehyeok123123',
-      database: 'research',
-      entities: [Admin, Post, Content],
-      synchronize: true,
+ 
     }),
     AuthModule,
     PostModule,
